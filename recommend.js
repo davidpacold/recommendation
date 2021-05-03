@@ -17,38 +17,49 @@ app.get('/', (request, response) => {
 })
 
 
-app.post('/weather', (request, response) => {
+app.post('/recommend', (request, response) => {
   const incomingBody = request.body.Body;
   console.log(incomingBody)
-  const twiml = new MessagingResponse();
+  
+    // defining a variable that will be used to pick a result from all the recommended music . In this case, the 9 means that a number will be selected from 0 - 9 (inclusive of those)
+    randomnumber = getRandomInt(9);
+    //This is the function to generate a random number that is stored in the above variable
+    function getRandomInt(max){
+      return Math.floor(Math.random() * max);
+    }
 
-  /* twiml.message('The Robots are coming! Head for the hills!' +incomingBody);
+  async function getrecommendedmusic () {
 
-  response.writeHead(200, {'Content-Type': 'text/xml'});
-  response.end(twiml.toString()); */
-
-  async function gettempincity () {
-
-    let payload = { q:incomingBody, units:'imperial', appid:'625e442a1bc2aae1cd29e570d83e9658' };
+    let payload = { q:incomingBody };
     console.log(payload)
     const params = new url.URLSearchParams(payload);
 
-    let res = await axios.get(`https://api.openweathermap.org/data/2.5/weather?${params}`);
-    console.log(res)
+    let res = await axios.get(`https://tastedive.com/api/similar?${params}`);
+    //console.log(res)
     let data = res.data;
     console.log(res.status);
-    
-    let temperature = data.main.temp
-    console.log(data);
-    console.log(data.main.temp)
-    console.log(temperature)
-    twiml.message('The current temp in ' +incomingBody +' is ' +temperature);
+    console.log(randomnumber)
+    let submitted = data.Similar.Info[0].Name
+    let result1 = data.Similar.Results[randomnumber].Name
+    console.log('submitted '+submitted)
+    console.log('You may Like '+result1)
 
-    response.writeHead(200, {'Content-Type': 'text/xml'});
-    response.end(twiml.toString());
-    
+    randomnumber2 = getRandomInt(9);
+    let result2 = data.Similar.Results[randomnumber2].Name
+    console.log(randomnumber2)
+    console.log(result2)
+
+ const twiml = new MessagingResponse();
+
+   twiml.message('If you like '+submitted +' we think you will also like '+result1);
+   twiml.message('This recommendation was provided by tastedive.com');
+   
+  response.writeHead(200, {'Content-Type': 'text/xml'});
+  response.end(twiml.toString()); 
+
+
   }
-  gettempincity();
+  getrecommendedmusic();
 
 
 
