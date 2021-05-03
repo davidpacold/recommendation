@@ -1,23 +1,21 @@
-const https = require('https');
+const https = require('https')
+const options = {
+  hostname: 'tastedive.com',
+  port: 443,
+  path: '/api/similar?q=red+hot+chili+peppers',
+  method: 'GET'
+}
 
-https.get('https://jsonplaceholder.typicode.com/users', res => {
-  let data = [];
-  const headerDate = res.headers && res.headers.date ? res.headers.date : 'no response date';
-  console.log('Status Code:', res.statusCode);
-  console.log('Date in Response header:', headerDate);
+const req = https.request(options, res => {
+  console.log(`statusCode: ${res.statusCode}`)
 
-  res.on('data', chunk => {
-    data.push(chunk);
-  });
+  res.on('data', d => {
+    process.stdout.write(d)
+  })
+})
 
-  res.on('end', () => {
-    console.log('Response ended: ');
-    const users = JSON.parse(Buffer.concat(data).toString());
-    console.log(` ${users} `);
-    for(user of users) {
-      console.log(`Got user with id: ${user.id}, name: ${user.name}`);
-    }
-  });
-}).on('error', err => {
-  console.log('Error: ', err.message);
-});
+req.on('error', error => {
+  console.error(error)
+})
+
+req.end()
