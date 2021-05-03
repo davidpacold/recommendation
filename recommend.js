@@ -51,12 +51,11 @@ app.post('/recommend', (request, response) => {
 
  const twiml = new MessagingResponse();
 
-   twiml.message('If you like '+submitted +' we think you will also like '+result1);
+   twiml.message('If you like '+submitted +' we think you will also like '+result1 +' or even '+result2);
    twiml.message('This recommendation was provided by tastedive.com');
    
   response.writeHead(200, {'Content-Type': 'text/xml'});
   response.end(twiml.toString()); 
-
 
   }
   getrecommendedmusic();
