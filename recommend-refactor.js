@@ -53,7 +53,7 @@ console.log('the random number generated is '+randomnumber)
 
     console.log(res.status);
 
-    console.log(randomnumber)
+    //console.log(randomnumber)
     let submitted = data.Similar.Info[0].Name
     console.log('submitted '+submitted)
 
@@ -72,7 +72,9 @@ console.log('the random number generated is '+randomnumber)
     else if(mycount !=='0')
     {
         let result1 = data.Similar.Results[randomnumber].Name
-        console.log('You may Like '+result1)
+        //let result2 = data.Similar.Results[randomnumber].Name
+        console.log('You may like '+result1)
+        console.log('you may also like '+result2)
         const twiml = new MessagingResponse();
 
    twiml.message('If you like '+submitted +' we think you will also like '+result1);
