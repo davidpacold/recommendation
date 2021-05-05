@@ -66,8 +66,9 @@ console.log('the random number generated is '+randomnumber)
     // here the random number that was selected is now printed out to the console for troubleshooting and monitoring 
     console.log('asking user to retry with a different artist');
     // Here we are now going to send a response back to the user who sent in the message. This is formatted using the TwiML XML Response / message tags 
-    response.send( "<Response><Message>Sorry, but that search resulted in no results. Ensure spelling was correct or try another artist</Message></Response>");
-    } 
+    response.send( "<Response><Message>Sorry, but that search resulted in no results.</Message></Response>");
+    response.send( "<Response><Message>That is typically due to either a very niche artist, or incorrect spelling, double check your spelling or try another artist</Message></Response>"); 
+  } 
     // if the users submitted text does not match the word start, we are now going to assume that it must be a guess. We are now going to compare the users submitted message (incomingBody) to the current random number (gamenumber). This case is testing for a guess thats too low.
     else if(mycount !=='0')
     {
@@ -95,7 +96,7 @@ console.log('the random number generated is '+randomnumber)
     // Here we are logging a message to the console that the users guess didnt match any of the expected values, a number or the word "start".
     console.log('unknown entry')
     // here we are now sending a message back to the user with the result of their guess. In this case, that we were unable to match it aginst an expected value and they should say Start to begin a game. Again this is formatted using the TwiML response / message tags
-    response.send( "<Response><Message>im not sure what you mean, try another artist</Message></Response>");
+    response.send( "<Response><Message>I wasnt able to find any suggested matches, try another artist</Message></Response>");
     }
 
 
