@@ -20,7 +20,7 @@ app.get('/', (request, response) => {
 app.post('/recommend', (request, response) => {
   
   
-  //collect the inconming user submisison
+  //collect the incoming user submission
     let usersubmission = request.body.Body;
     console.log('the user submitted '+usersubmission) //outputs the user submission to the console log
 
@@ -75,7 +75,7 @@ console.log('the random number generated is '+randomnumber)
         let result1 = data.Similar.Results[randomnumber].Name
         //let result2 = data.Similar.Results[randomnumber].Name
         console.log('You may like '+result1)
-        console.log('you may also like '+result2)
+       // console.log('you may also like '+result2)
         const twiml = new MessagingResponse();
 
    twiml.message('If you like '+submitted +' we think you will also like '+result1);
@@ -93,9 +93,9 @@ console.log('the random number generated is '+randomnumber)
     // finally the users submitted text does not match the word start, and all the number evaluations fail, we are now going to assume that it must not be a valid guess. 
     else
     {
-    // Here we are logging a message to the console that the users guess didnt match any of the expected values, a number or the word "start".
+    // Here we are logging a message to the console that the users guess didn't match any of the expected values, a number or the word "start".
     console.log('unknown entry')
-    // here we are now sending a message back to the user with the result of their guess. In this case, that we were unable to match it aginst an expected value and they should say Start to begin a game. Again this is formatted using the TwiML response / message tags
+    // here we are now sending a message back to the user with the result of their guess. In this case, that we were unable to match it against an expected value and they should say Start to begin a game. Again this is formatted using the TwiML response / message tags
     response.send( "<Response><Message>I wasnt able to find any suggested matches, try another artist</Message></Response>");
     }
 
